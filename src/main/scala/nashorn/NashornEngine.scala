@@ -1,9 +1,9 @@
+package nashorn
+
 import java.util.concurrent.Executors
 import java.util.function.Consumer
 import javax.script.{ScriptContext, ScriptEngine, SimpleScriptContext}
-
 import org.slf4j.{Logger, LoggerFactory}
-
 import scala.io.Source
 
 class NashornEngine(engine: ScriptEngine, sc: ScriptContext) {
@@ -75,12 +75,12 @@ object NashornEngine {
 
   def initPolyFills(engine: NashornEngine): Unit = {
     //    runResource("nashorn-polyfill.js")
-    engine.evalResource("blob-polyfill.js")
-    engine.evalResource("global-polyfill.js")
-    engine.evalResource("timer-polyfill.js")
-    engine.evalResource("xml-http-request-polyfill.js")
-    engine.evalResource("es6-promise-polyfill.js")
-    engine.evalResource("fetch.js")
+    engine.evalResource("/blob-polyfill.js")
+    engine.evalResource("/global-polyfill.js")
+    engine.evalResource("/timer-polyfill.js")
+    engine.evalResource("/xml-http-request-polyfill.js")
+    engine.evalResource("/es6-promise-polyfill.js")
+    engine.evalResource("/fetch.js")
   }
 
   def readResource(resource: String): String = {
