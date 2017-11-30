@@ -7,6 +7,6 @@ object Main {
 
     engine.evalString("print('Hello World!');")
 
-    engine.evalResource("fetch-wiki.js")
+    engine.evalResource("/fetch-wiki.js")
   }
 }
