@@ -127,7 +127,7 @@
     var task = scheduler.schedule(runnable, millis, TimeUnit.MILLISECONDS);
     timerMap.put(timerId, task);
 
-    fn();
+    //fn();
 
     return timerId;
   };

@@ -21,3 +21,8 @@ fetch(url)
     print('There has been a problem with your fetch operation: ' + error.message);
    });
 })(this);
+
+
+while (true) {
+    global.nashornEventLoop.process();
+}
