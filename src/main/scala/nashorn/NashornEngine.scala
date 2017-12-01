@@ -27,6 +27,8 @@ object JavascriptLogger {
 
 object NashornEngine {
 
+  val globalScheduledThreadPool = Executors.newScheduledThreadPool(20)
+
   def init(): NashornEngine = {
 
     import javax.script.ScriptEngineManager
@@ -59,7 +61,6 @@ object NashornEngine {
 
 
   def initScriptContext(engine: ScriptEngine): SimpleScriptContext = {
-    val globalScheduledThreadPool = Executors.newScheduledThreadPool(20)
 
     val sc = new SimpleScriptContext()
 
@@ -74,12 +75,13 @@ object NashornEngine {
   }
 
   def initPolyFills(engine: NashornEngine): Unit = {
-    //    runResource("nashorn-polyfill.js")
+//    engine.evalResource("/nashorn-polyfill.js")
     engine.evalResource("/blob-polyfill.js")
     engine.evalResource("/global-polyfill.js")
     engine.evalResource("/timer-polyfill.js")
     engine.evalResource("/xml-http-request-polyfill.js")
     engine.evalResource("/es6-promise-polyfill.js")
+//    engine.evalResource("/promise.js")
     engine.evalResource("/fetch.js")
   }
 

@@ -17,6 +17,9 @@
   var StringEntity = Packages.org.apache.http.entity.StringEntity;
   var EntityBuilder = Packages.org.apache.http.client.entity.EntityBuilder;
   var ContentType = Packages.org.apache.http.entity.ContentType;
+  var SSLContextBuilder = Packages.org.apache.http.ssl.ContentType;
+  var TrustStrategy = Packages.org.apache.http.ssl.TrustStrategy;
+  var NoopHostnameVerifier = Packages.org.apache.http.conn.ssl.NoopHostnameVerifier;
 
   var XMLHttpRequest = function () {
           print("XMLHttpRequest");
@@ -76,9 +79,9 @@
       requestBuilder = RequestBuilder.create(_method);
       requestBuilder.setUri(_url);
 
-      // for (var prop in headers) {
-      //   requestBuilder.addHeader(prop, headers[prop])
-      // }
+//      for (var prop in headers) {
+//         requestBuilder.addHeader(prop, headers[prop])
+//      }
 
       context.setTimeout(this.onreadystatechange, 0);
     };
@@ -111,6 +114,16 @@
       } else {
         throw new Error('unsupported body data type');
       }
+
+    var trustAll = new TrustStrategy() {
+               isTrusted: function(chain, authType) {
+                   return true;
+               }
+    };
+    var sslContext = new SSLContextBuilder().loadTrustMaterial(null, trustAll).build();
+    clientBuilder.setSSLContext(sslContext)
+    clientBuilder.setSSLHostnameVerifier(new NoopHostnameVerifier());
+
 
           print("starting");
 

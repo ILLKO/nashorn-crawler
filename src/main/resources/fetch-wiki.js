@@ -1,7 +1,7 @@
 (function (context) {
   'use strict';
 
-var url =  "http://opennet.ru/"
+var url =  "https://opennet.ru/"
 //"https://en.wikipedia.org/w/api.php?action=query&format=json&prop=&meta=siteinfo&siprop=statistics"
 print("fetching" + url);
 
