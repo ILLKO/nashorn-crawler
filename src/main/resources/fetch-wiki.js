@@ -1,9 +1,12 @@
 (function (context) {
   'use strict';
 
-var url =  "https://opennet.ru/"
+var url =  "http://opennet.ru/"
 //"https://en.wikipedia.org/w/api.php?action=query&format=json&prop=&meta=siteinfo&siprop=statistics"
-print("fetching" + url);
+print("fetching " + url);
+
+var CountDownLatch = Java.type('java.util.concurrent.CountDownLatch');
+var count = new CountDownLatch(1);
 
 //setTimeout(function() { context.__nashorn_polyfill_timer.cancel(); }, 3 * 1000);
 
@@ -15,14 +18,16 @@ fetch(url)
     print("Got response")
     var response = JSON.stringify(response)
     print(response);
+    count.countDown();
   })
   .catch(function(error) {
     print("Got error")
     print('There has been a problem with your fetch operation: ' + error.message);
    });
+
+   while (count.getCount() > 0) {
+       global.nashornEventLoop.process();
+   }
+
+   print("DONE!!!!")
 })(this);
-
-
-while (true) {
-    global.nashornEventLoop.process();
-}
