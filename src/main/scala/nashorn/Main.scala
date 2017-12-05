@@ -3,7 +3,7 @@ package nashorn
 object Main {
 
   def main(args: Array[String]): Unit = {
-    runJvm
+    runJs
   }
 
   def runJvm = {
@@ -15,6 +15,7 @@ object Main {
 
     engine.evalString("print('Hello World!');")
 
-    engine.evalResource("/fetch-wiki.js")
+    val value = engine.evalResource("/fetch-wiki.js").asInstanceOf[String]
+    println("In Scala " + value)
   }
 }

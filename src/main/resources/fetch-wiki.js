@@ -7,6 +7,7 @@ print("fetching " + url);
 
 var CountDownLatch = Java.type('java.util.concurrent.CountDownLatch');
 var count = new CountDownLatch(1);
+var result = "Not done";
 
 //setTimeout(function() { context.__nashorn_polyfill_timer.cancel(); }, 3 * 1000);
 
@@ -18,6 +19,7 @@ fetch(url)
     print("Got response")
     var response = JSON.stringify(response)
     print(response);
+    result = response
     count.countDown();
   })
   .catch(function(error) {
@@ -30,4 +32,5 @@ fetch(url)
    }
 
    print("DONE!!!!")
+   return result;
 })(this);
