@@ -3,7 +3,10 @@ package nashorn
 import java.util.concurrent.Executors
 import java.util.function.Consumer
 import javax.script.{ScriptContext, ScriptEngine, SimpleScriptContext}
+
 import org.slf4j.{Logger, LoggerFactory}
+
+import scala.concurrent.Promise
 import scala.io.Source
 
 class NashornEngine(engine: ScriptEngine, sc: ScriptContext) {
@@ -14,6 +17,20 @@ class NashornEngine(engine: ScriptEngine, sc: ScriptContext) {
     val result = engine.eval(code, sc)
     println(s" done")
     result
+  }
+
+  def evalResourceAsync[A, B](resource: String, handler: PartialFunction[A, B]): Unit = {
+    import scala.concurrent.ExecutionContext.Implicits.global
+    print(s"Running $resource ")
+
+    val p = Promise[A]()
+    val f = p.future
+
+    val code = NashornEngine.readResource(resource)
+    engine.eval(code, sc)
+    println(s" done")
+
+    f.onSuccess(handler)
   }
 
   def evalString(script: String): AnyRef = {
