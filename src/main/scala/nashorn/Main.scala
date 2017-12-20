@@ -11,7 +11,7 @@ object Main {
   }
 
   private def runJs = {
-    val engine = NashornEngine.init()
+    val engine = NashornEngine.init(true)
 
     engine.evalString("print('Hello World!');")
 

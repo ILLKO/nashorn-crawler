@@ -9,13 +9,15 @@ import org.slf4j.{Logger, LoggerFactory}
 import scala.concurrent.Promise
 import scala.io.Source
 
-class NashornEngine(engine: ScriptEngine, sc: ScriptContext) {
+class NashornEngine(engine: ScriptEngine, val sc: ScriptContext) {
 
   def evalResource(resource: String): AnyRef = {
     print(s"Running $resource ")
+    val time = System.nanoTime()
     val code = NashornEngine.readResource(resource)
     val result = engine.eval(code, sc)
-    println(s" done")
+    val elapsed = (System.nanoTime() - time) / (1000 * 1000)
+    println(s" done in $elapsed millis")
     result
   }
 
@@ -46,7 +48,7 @@ object NashornEngine {
 
   val globalScheduledThreadPool = Executors.newScheduledThreadPool(20)
 
-  def init(): NashornEngine = {
+  def init(polyfills: Boolean = false): NashornEngine = {
 
     import javax.script.ScriptEngineManager
 
@@ -57,7 +59,9 @@ object NashornEngine {
 
     val ne = new NashornEngine(engine, sc)
 
-    initPolyFills(ne)
+    if (polyfills) {
+      initPolyFills(ne)
+    }
 
     ne
   }
