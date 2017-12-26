@@ -16,7 +16,7 @@ class JsPromiseSpec extends Specification {
         reject(new RuntimeException("ex"))
       }
 
-      val p = new JsPromise[String](code)
+      val p = new JsPromise1[String](code)
 
       p.`then`(s => s === dummy, ex => throw new RuntimeException("should not be called")).f.await
     }
@@ -29,7 +29,7 @@ class JsPromiseSpec extends Specification {
         reject(new RuntimeException("ex"))
       }
 
-      val p = new JsPromise[String](code)
+      val p = new JsPromise1[String](code)
 
       p.`then`(s => s === dummy, ex => throw new RuntimeException("should not be called")).f.await
     }
@@ -42,7 +42,7 @@ class JsPromiseSpec extends Specification {
         reject(new RuntimeException("ex"))
       }
 
-      val p = new JsPromise[String](code)
+      val p = new JsPromise1[String](code)
 
       p.`then`(s => s === dummy, ex => throw new RuntimeException("should not be called")).f.await
     }
@@ -54,7 +54,7 @@ class JsPromiseSpec extends Specification {
         resolve(dummy)
       }
 
-      val p = new JsPromise[String](code)
+      val p = new JsPromise1[String](code)
 
       p.`then`(s => failure("should not be called").asInstanceOf[Result])
         .`catch`(ex => (ex === new RuntimeException("ex")).toResult)
