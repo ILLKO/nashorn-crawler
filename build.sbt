@@ -10,6 +10,7 @@ val slf4jV = "1.7.25"
 libraryDependencies ++= Seq(
   "org.apache.httpcomponents" % "httpclient" % "4.5.2",
   "org.apache.httpcomponents" % "httpasyncclient" % "4.1.2",
+  "com.typesafe.akka" %% "akka-http" % "10.0.11",
   "org.apache.commons" % "commons-pool2" % "2.4.2",
   "com.typesafe.akka" %% "akka-actor" % "2.3.15",
   "org.slf4j" % "slf4j-api" % slf4jV,
